@@ -1,6 +1,6 @@
 import { getAuth, signInWithPopup } from 'firebase/auth';
 import types from "../types/types";
-import { provider } from "../firebase/firebase.config";
+import { googleProvider } from "../firebase/firebase.config";
 
 export const login = (uid, displayName) => ({
 	type: types.login,
@@ -17,7 +17,7 @@ export const startLoginEmailPassword = (email, password) => dispatch => {
 };
 
 export const startGoogleLogin = () => dispatch => {
-	signInWithPopup(getAuth(), provider).then(({ user }) => {
+	signInWithPopup(getAuth(), googleProvider).then(({ user }) => {
 		dispatch(login(user.uid, user.displayName));
 	}).catch((error) => {
 		console.log(error);
