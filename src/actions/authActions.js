@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup } from 'firebase/auth';
+import { getAuth, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import types from "../types/types";
 import { googleProvider } from "../firebase/firebase.config";
 
@@ -22,4 +22,10 @@ export const startGoogleLogin = () => dispatch => {
 	}).catch((error) => {
 		console.log(error);
 	});
+};
+
+export const startRegisterWithEmailPasswordName = (email, password, name) => async dispatch => {
+	const { user } = await createUserWithEmailAndPassword(getAuth(), email, password);
+	await updateProfile(getAuth().currentUser, { displayName: name });
+	dispatch(login(user.uid, user.displayName));
 };
