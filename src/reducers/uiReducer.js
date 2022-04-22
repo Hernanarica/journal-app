@@ -17,6 +17,16 @@ function uiReducer(state = initialState, action) {
 				...state,
 				msgError: null
 			};
+		case types.uiStartLoading:
+			return {
+				...state,
+				loading: action.payload
+			};
+		case types.uiFinishLoading:
+			return {
+				...state,
+				loading: action.payload
+			};
 		
 		default:
 			return state;

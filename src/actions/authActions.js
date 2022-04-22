@@ -1,6 +1,7 @@
-import { getAuth, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import types from "../types/types";
 import { googleProvider } from "../firebase/firebase.config";
+import { finishLoading, startLoading } from "./uiAction";
 
 export const login = (uid, displayName) => ({
 	type: types.login,
@@ -10,10 +11,11 @@ export const login = (uid, displayName) => ({
 	}
 });
 
-export const startLoginEmailPassword = (email, password) => dispatch => {
-	setTimeout(() => {
-		dispatch(login('321', 'antonio'));
-	}, 3500);
+export const startLoginEmailPassword = (email, password) => async dispatch => {
+	dispatch(startLoading());
+	const { user } = await signInWithEmailAndPassword(getAuth(), email, password);
+	dispatch(login(user.uid, user.displayName));
+	dispatch(finishLoading());
 };
 
 export const startGoogleLogin = () => dispatch => {

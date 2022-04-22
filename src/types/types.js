@@ -2,7 +2,9 @@ const types = {
 	login: '[Auth] login',
 	logout: '[Auth] logout',
 	uiSetError: '[UI] Set Error',
-	uiRemoveError: '[] Remove Error'
+	uiRemoveError: '[UI] Remove Error',
+	uiStartLoading: '[UI] Start Loading',
+	uiFinishLoading: '[UI] Finish Loading'
 };
 
 export default types;
