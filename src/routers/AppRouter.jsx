@@ -15,8 +15,6 @@ export const AppRouter = () => {
 	const [ isAuth, setIsAuth ]     = useState(false);
 	
 	useEffect(() => {
-		console.log(isAuth);
-		
 		onAuthStateChanged(getAuth(), user => {
 			if (user?.uid) {
 				dispatch(login(user.uid, user.displayName));
@@ -31,12 +29,11 @@ export const AppRouter = () => {
 	
 	if (checking) {
 		return (
-			<h1>Espere...</h1>
+			<h1>Wait...</h1>
 		);
 	}
 	
 	return (
-		// @formatter:off
 		<Router>
 			<Routes>
 				<Route path="/" element={ <AuthRouter isAuth={ isAuth }> <JournalScreen /> </AuthRouter> } />
