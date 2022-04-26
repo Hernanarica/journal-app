@@ -1,8 +1,8 @@
 import types from "../types/types";
 
 const initialState = {
-	uid: 10,
-	name: 'Hernan'
+	uid: '',
+	name: ''
 };
 
 function authReducer(state = initialState, action) {

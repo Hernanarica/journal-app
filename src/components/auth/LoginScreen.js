@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useForm from "../../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { startGoogleLogin, startLoginEmailPassword } from "../../actions/authActions";
+import { startGoogleLogin, startLoginEmailPassword } from "../../actions/authAction";
 
 export const LoginScreen = () => {
 	const { ui: { loading } }               = useSelector(state => state);

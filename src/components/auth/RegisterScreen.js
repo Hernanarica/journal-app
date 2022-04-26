@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import useForm from "../../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import { removeError, setError } from "../../actions/uiAction";
-import { startRegisterWithEmailPasswordName } from "../../actions/authActions";
+import { startRegisterWithEmailPasswordName } from "../../actions/authAction";
 
 export const RegisterScreen = () => {
 	const { msgError }                             = useSelector(state => state.ui);

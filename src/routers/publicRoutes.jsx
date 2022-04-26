@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-function PublicRoutes({ children }) {
-	const isAuth = false;
+function PublicRoutes({ children, isAuth }) {
 	
 	return isAuth
 		? <Navigate to="/" />
