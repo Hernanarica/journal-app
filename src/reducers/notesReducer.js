@@ -31,6 +31,11 @@ function notesReducer(state = initialState, action) {
 				...state,
 				notes: [ ...action.payload ]
 			};
+		case types.noteUpdate:
+			return {
+				...state,
+				notes: state.notes.map(note => note.id === action.payload.id ? action.payload.note : note)
+			};
 		
 		default:
 			return state;
