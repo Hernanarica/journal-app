@@ -8,6 +8,7 @@ import PublicRoutes from "./publicRoutes";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../actions/authAction";
+import { startLoadingNotes } from "../actions/notesAction";
 
 export const AppRouter = () => {
 	const dispatch                  = useDispatch();
@@ -15,10 +16,13 @@ export const AppRouter = () => {
 	const [ isAuth, setIsAuth ]     = useState(false);
 	
 	useEffect(() => {
-		onAuthStateChanged(getAuth(), user => {
+		onAuthStateChanged(getAuth(), async user => {
 			if (user?.uid) {
 				dispatch(login(user.uid, user.displayName));
+				
 				setIsAuth(true);
+				
+				dispatch(startLoadingNotes(user.uid));
 			} else {
 				setIsAuth(false);
 			}
@@ -33,6 +37,7 @@ export const AppRouter = () => {
 		);
 	}
 	
+	// @formatter:off
 	return (
 		<Router>
 			<Routes>
