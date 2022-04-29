@@ -3,6 +3,7 @@ import { db } from "../firebase/firebase.config";
 import Swal from "sweetalert2";
 import types from "../types/types";
 import { loadNotes } from "../helpers/loadNotes";
+import { fileUpload } from "../helpers/fileUpload";
 
 export const startNewNote = () => async (dispatch, getState) => {
 	try {
@@ -63,3 +64,23 @@ export const refreshNote = (id, note) => ({
 		note: { ...note, id }
 	}
 });
+
+
+export const startUploading = file => async (dispatch, getState) => {
+	const { active: note } = getState().notes;
+	
+	Swal.fire({
+		title: 'Uploading...',
+		text: 'Please wait...',
+		didOpen() {
+			Swal.showLoading();
+		}
+	});
+	
+	const fileUrl = await fileUpload(file);
+	note.imageUrl = fileUrl;
+	
+	dispatch(startSaveNote(note));
+	
+	Swal.close();
+};
