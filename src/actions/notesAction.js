@@ -19,6 +19,7 @@ export const startNewNote = () => async (dispatch, getState) => {
 		const docRef = await addDoc(collection(db, `${ uid }/journal/notes`), newNote);
 		
 		dispatch(activeNote(docRef.id, newNote));
+		dispatch(addNewNote(docRef.id, newNote));
 	} catch (err) {
 		console.error("Error adding document: ", err);
 	}
@@ -26,6 +27,11 @@ export const startNewNote = () => async (dispatch, getState) => {
 
 export const activeNote = (id, note) => ({
 	type: types.noteActive,
+	payload: { id, ...note }
+});
+
+export const addNewNote = (id, note) => ({
+	type: types.noteAddNew,
 	payload: { id, ...note }
 });
 
@@ -45,6 +51,7 @@ export const startSaveNote = note => async (dispatch, getState) => {
 	
 	const noteToFirestore = { ...note };
 	delete noteToFirestore.id;
+	
 	if (!noteToFirestore.imageUrl) {
 		delete noteToFirestore.imageUrl;
 	}
@@ -102,4 +109,8 @@ export const startDeleting = id => async (dispatch, getState) => {
 export const refreshNotes = id => ({
 	type: types.notesUpdate,
 	payload: { id }
+});
+
+export const noteLogoutCleaning = () => ({
+	type: types.noteLogoutCleaning
 });

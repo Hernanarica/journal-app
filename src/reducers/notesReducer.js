@@ -42,6 +42,17 @@ function notesReducer(state = initialState, action) {
 				notes: state.notes.filter(note => note.id !== action.payload.id),
 				active: null
 			};
+		case types.noteLogoutCleaning:
+			return {
+				...state,
+				notes: [],
+				active: null
+			};
+		case types.noteAddNew:
+			return {
+				...state,
+				notes: [ action.payload, ...state.notes ]
+			};
 		
 		default:
 			return state;

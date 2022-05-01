@@ -6,6 +6,7 @@ const types = {
 	uiStartLoading: '[UI] Start Loading',
 	uiFinishLoading: '[UI] Finish Loading',
 	noteAdd: '[Notes] New Note',
+	noteAddNew: '[Notes] New note Add',
 	noteActive: '[Notes] Set Active Note',
 	notesLoad: '[Notes] Load notes',
 	noteUpdate: '[Notes] Update Note',
