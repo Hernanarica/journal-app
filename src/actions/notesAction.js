@@ -1,4 +1,4 @@
-import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebase.config";
 import Swal from "sweetalert2";
 import types from "../types/types";
@@ -65,7 +65,6 @@ export const refreshNote = (id, note) => ({
 	}
 });
 
-
 export const startUploading = file => async (dispatch, getState) => {
 	const { active: note } = getState().notes;
 	
@@ -84,3 +83,23 @@ export const startUploading = file => async (dispatch, getState) => {
 	
 	Swal.close();
 };
+
+export const startDeleting = id => async (dispatch, getState) => {
+	const { uid } = getState().auth;
+	const { id }  = getState().notes.active;
+	
+	await deleteDoc(doc(db, `${ uid }/journal/notes`, `${ id }`));
+	
+	dispatch(refreshNotes(id));
+	
+	Swal.fire({
+		title: 'Deleted',
+		text: 'removed successfully',
+		icon: 'success'
+	});
+};
+
+export const refreshNotes = id => ({
+	type: types.notesUpdate,
+	payload: { id }
+});

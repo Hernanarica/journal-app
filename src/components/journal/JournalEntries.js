@@ -7,7 +7,10 @@ export const JournalEntries = () => {
 	return (
 		<div className="journal__entries">
 			{
-				notes.map(note => <JournalEntry key={ note.id } { ...note } />)
+				(notes.length === 0)
+					? <h1>Wait...</h1>
+					: notes.map(note => <JournalEntry key={ note.id } { ...note } />)
+				
 			}
 		</div>
 	);
